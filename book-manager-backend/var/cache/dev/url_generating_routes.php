@@ -17,4 +17,10 @@ return [
     '_profiler_router' => [['token'], ['_controller' => 'web_profiler.controller.router::panelAction'], [], [['text', '/router'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::body'], [], [['text', '/exception'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
     '_profiler_exception_css' => [['token'], ['_controller' => 'web_profiler.controller.exception_panel::stylesheet'], [], [['text', '/exception.css'], ['variable', '/', '[^/]++', 'token', true], ['text', '/_profiler']], [], [], []],
+    'api_books' => [[], ['_controller' => 'App\\Controller\\BookController::getBooks'], [], [['text', '/api/books']], [], [], []],
+    'api_book_details' => [['id'], ['_controller' => 'App\\Controller\\BookController::getBookById'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/books']], [], [], []],
+    'api_book_add' => [[], ['_controller' => 'App\\Controller\\BookController::addBook'], [], [['text', '/api/books']], [], [], []],
+    'App\Controller\BookController::getBooks' => [[], ['_controller' => 'App\\Controller\\BookController::getBooks'], [], [['text', '/api/books']], [], [], []],
+    'App\Controller\BookController::getBookById' => [['id'], ['_controller' => 'App\\Controller\\BookController::getBookById'], [], [['variable', '/', '[^/]++', 'id', true], ['text', '/api/books']], [], [], []],
+    'App\Controller\BookController::addBook' => [[], ['_controller' => 'App\\Controller\\BookController::addBook'], [], [['text', '/api/books']], [], [], []],
 ];
