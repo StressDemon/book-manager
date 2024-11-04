@@ -351,11 +351,25 @@
     <service id="App\Entity" class="App\Entity" abstract="true">
       <tag name="container.excluded" source="in &quot;config/services.yaml&quot;"/>
     </service>
+    <service id="App\Controller\AuthorController" class="App\Controller\AuthorController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\AuthorController"/>
+      </call>
+    </service>
     <service id="App\Controller\BookController" class="App\Controller\BookController" public="true" autowire="true" autoconfigure="true">
       <tag name="controller.service_arguments"/>
       <tag name="container.service_subscriber"/>
       <call method="setContainer">
         <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\BookController"/>
+      </call>
+    </service>
+    <service id="App\Controller\GenreController" class="App\Controller\GenreController" public="true" autowire="true" autoconfigure="true">
+      <tag name="controller.service_arguments"/>
+      <tag name="container.service_subscriber"/>
+      <call method="setContainer">
+        <argument type="service" id=".service_locator.O2p6Lk7.App\Controller\GenreController"/>
       </call>
     </service>
     <service id="App\Repository\AuthorRepository" class="App\Repository\AuthorRepository" autowire="true" autoconfigure="true">
@@ -409,7 +423,7 @@
     </service>
     <service id="argument_resolver.service" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">
       <tag priority="-50" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\ServiceValueResolver">controller.argument_value_resolver</tag>
-      <argument type="service" id=".service_locator.eFqA6Ev"/>
+      <argument type="service" id=".service_locator.u19lXzz"/>
     </service>
     <service id="argument_resolver.default" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">
       <tag priority="-100" name="Symfony\Component\HttpKernel\Controller\ArgumentResolver\DefaultValueResolver">controller.argument_value_resolver</tag>
@@ -3284,7 +3298,7 @@
     </service>
     <service id="argument_resolver.not_tagged_controller" class="Symfony\Component\HttpKernel\Controller\ArgumentResolver\NotTaggedControllerValueResolver">
       <tag name="controller.argument_value_resolver" priority="-200"/>
-      <argument type="service" id=".service_locator.eFqA6Ev"/>
+      <argument type="service" id=".service_locator.u19lXzz"/>
     </service>
     <service id="debug.log_processor" class="Symfony\Bridge\Monolog\Processor\DebugProcessor">
       <tag name="kernel.reset" method="reset"/>
@@ -6996,9 +7010,15 @@
       <argument type="service" id="maker.file_manager"/>
       <argument type="service" id="maker.generator"/>
     </service>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\AuthorController" class="App\Controller\AuthorController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\AuthorController" class="App\Controller\AuthorController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\AuthorController" class="App\Controller\AuthorController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\BookController" class="App\Controller\BookController" autowire="true" abstract="true"/>
     <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\BookController" class="App\Controller\BookController" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Controller\BookController" class="App\Controller\BookController" autowire="true" autoconfigure="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Contracts\Service\ServiceSubscriberInterface.0.App\Controller\GenreController" class="App\Controller\GenreController" autowire="true" abstract="true"/>
+    <service id=".instanceof.Symfony\Bundle\FrameworkBundle\Controller\AbstractController.0.App\Controller\GenreController" class="App\Controller\GenreController" autowire="true" abstract="true"/>
+    <service id=".abstract.instanceof.App\Controller\GenreController" class="App\Controller\GenreController" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AuthorRepository" class="App\Repository\AuthorRepository" autowire="true" abstract="true"/>
     <service id=".abstract.instanceof.App\Repository\AuthorRepository" class="App\Repository\AuthorRepository" autowire="true" autoconfigure="true" abstract="true"/>
     <service id=".instanceof.Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepositoryInterface.0.App\Repository\AwardRepository" class="App\Repository\AwardRepository" autowire="true" abstract="true"/>
@@ -7434,6 +7454,25 @@
         <argument key="loader" type="service_closure" id=".errored..service_locator.y4_Zrx..Symfony\Component\Config\Loader\LoaderInterface"/>
       </argument>
     </service>
+    <service id=".service_locator.Pe.SjzD" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="authorRepository" type="service_closure" id="App\Repository\AuthorRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.9kKwU2t" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
+    <service id=".service_locator.UWANlfb" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="authorRepository" type="service_closure" id="App\Repository\AuthorRepository"/>
+        <argument key="em" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+      </argument>
+    </service>
     <service id=".service_locator.E86grY4" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
@@ -7462,9 +7501,36 @@
         <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
       </argument>
     </service>
-    <service id=".service_locator.eFqA6Ev" class="Symfony\Component\DependencyInjection\ServiceLocator">
+    <service id=".service_locator.LHZBpiL" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator"/>
       <argument type="collection">
+        <argument key="genreRepository" type="service_closure" id="App\Repository\GenreRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.ZS8flUt" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="genreRepository" type="service_closure" id="App\Repository\GenreRepository"/>
+        <argument key="validator" type="service_closure" id="debug.validator"/>
+      </argument>
+    </service>
+    <service id=".service_locator.SCil6jr" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="entityManager" type="service_closure" id="doctrine.orm.default_entity_manager"/>
+        <argument key="genreRepository" type="service_closure" id="App\Repository\GenreRepository"/>
+      </argument>
+    </service>
+    <service id=".service_locator.u19lXzz" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator"/>
+      <argument type="collection">
+        <argument key="App\Controller\AuthorController::addAuthor" type="service_closure" id=".service_locator.9kKwU2t"/>
+        <argument key="App\Controller\AuthorController::deleteAuthor" type="service_closure" id=".service_locator.UWANlfb"/>
+        <argument key="App\Controller\AuthorController::getAuthor" type="service_closure" id=".service_locator.Pe.SjzD"/>
+        <argument key="App\Controller\AuthorController::getAuthorBooks" type="service_closure" id=".service_locator.Pe.SjzD"/>
+        <argument key="App\Controller\AuthorController::listAuthors" type="service_closure" id=".service_locator.Pe.SjzD"/>
+        <argument key="App\Controller\AuthorController::updateAuthor" type="service_closure" id=".service_locator.UWANlfb"/>
         <argument key="App\Controller\BookController::addBook" type="service_closure" id=".service_locator.gxkSA7l"/>
         <argument key="App\Controller\BookController::deleteBook" type="service_closure" id=".service_locator.OKM9Lf6"/>
         <argument key="App\Controller\BookController::getAuthorsByBookId" type="service_closure" id=".service_locator.E86grY4"/>
@@ -7474,10 +7540,22 @@
         <argument key="App\Controller\BookController::getReviewsByBookId" type="service_closure" id=".service_locator.E86grY4"/>
         <argument key="App\Controller\BookController::searchBooks" type="service_closure" id=".service_locator.E86grY4"/>
         <argument key="App\Controller\BookController::updateBook" type="service_closure" id=".service_locator.XWnZ26H"/>
+        <argument key="App\Controller\GenreController::addGenre" type="service_closure" id=".service_locator.gxkSA7l"/>
+        <argument key="App\Controller\GenreController::deleteGenre" type="service_closure" id=".service_locator.SCil6jr"/>
+        <argument key="App\Controller\GenreController::getAllGenres" type="service_closure" id=".service_locator.LHZBpiL"/>
+        <argument key="App\Controller\GenreController::getBooksByGenreId" type="service_closure" id=".service_locator.LHZBpiL"/>
+        <argument key="App\Controller\GenreController::getGenreById" type="service_closure" id=".service_locator.LHZBpiL"/>
+        <argument key="App\Controller\GenreController::updateGenre" type="service_closure" id=".service_locator.ZS8flUt"/>
         <argument key="App\Kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="App\Kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel::registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
+        <argument key="App\Controller\AuthorController:addAuthor" type="service_closure" id=".service_locator.9kKwU2t"/>
+        <argument key="App\Controller\AuthorController:deleteAuthor" type="service_closure" id=".service_locator.UWANlfb"/>
+        <argument key="App\Controller\AuthorController:getAuthor" type="service_closure" id=".service_locator.Pe.SjzD"/>
+        <argument key="App\Controller\AuthorController:getAuthorBooks" type="service_closure" id=".service_locator.Pe.SjzD"/>
+        <argument key="App\Controller\AuthorController:listAuthors" type="service_closure" id=".service_locator.Pe.SjzD"/>
+        <argument key="App\Controller\AuthorController:updateAuthor" type="service_closure" id=".service_locator.UWANlfb"/>
         <argument key="App\Controller\BookController:addBook" type="service_closure" id=".service_locator.gxkSA7l"/>
         <argument key="App\Controller\BookController:deleteBook" type="service_closure" id=".service_locator.OKM9Lf6"/>
         <argument key="App\Controller\BookController:getAuthorsByBookId" type="service_closure" id=".service_locator.E86grY4"/>
@@ -7487,6 +7565,12 @@
         <argument key="App\Controller\BookController:getReviewsByBookId" type="service_closure" id=".service_locator.E86grY4"/>
         <argument key="App\Controller\BookController:searchBooks" type="service_closure" id=".service_locator.E86grY4"/>
         <argument key="App\Controller\BookController:updateBook" type="service_closure" id=".service_locator.XWnZ26H"/>
+        <argument key="App\Controller\GenreController:addGenre" type="service_closure" id=".service_locator.gxkSA7l"/>
+        <argument key="App\Controller\GenreController:deleteGenre" type="service_closure" id=".service_locator.SCil6jr"/>
+        <argument key="App\Controller\GenreController:getAllGenres" type="service_closure" id=".service_locator.LHZBpiL"/>
+        <argument key="App\Controller\GenreController:getBooksByGenreId" type="service_closure" id=".service_locator.LHZBpiL"/>
+        <argument key="App\Controller\GenreController:getGenreById" type="service_closure" id=".service_locator.LHZBpiL"/>
+        <argument key="App\Controller\GenreController:updateGenre" type="service_closure" id=".service_locator.ZS8flUt"/>
         <argument key="kernel:loadRoutes" type="service_closure" id=".service_locator.y4_Zrx."/>
         <argument key="kernel:registerContainerConfiguration" type="service_closure" id=".service_locator.y4_Zrx."/>
       </argument>
@@ -8097,9 +8181,21 @@
         <argument key="web_link.http_header_serializer" type="service_closure" id="web_link.http_header_serializer" on-invalid="ignore"/>
       </argument>
     </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\AuthorController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\AuthorController"/>
+      <argument>App\Controller\AuthorController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
     <service id=".service_locator.O2p6Lk7.App\Controller\BookController" class="Symfony\Component\DependencyInjection\ServiceLocator">
       <tag name="container.service_locator_context" id="App\Controller\BookController"/>
       <argument>App\Controller\BookController</argument>
+      <argument type="service" id="service_container"/>
+      <factory service=".service_locator.O2p6Lk7" method="withContext"/>
+    </service>
+    <service id=".service_locator.O2p6Lk7.App\Controller\GenreController" class="Symfony\Component\DependencyInjection\ServiceLocator">
+      <tag name="container.service_locator_context" id="App\Controller\GenreController"/>
+      <argument>App\Controller\GenreController</argument>
       <argument type="service" id="service_container"/>
       <factory service=".service_locator.O2p6Lk7" method="withContext"/>
     </service>
@@ -8277,7 +8373,9 @@
       <call method="allowControllers">
         <argument type="collection">
           <argument>App\Kernel</argument>
+          <argument>App\Controller\AuthorController</argument>
           <argument>App\Controller\BookController</argument>
+          <argument>App\Controller\GenreController</argument>
           <argument>Doctrine\Bundle\DoctrineBundle\Controller\ProfilerController</argument>
         </argument>
       </call>
@@ -9662,7 +9760,7 @@
     <service id="Psr\Log\LoggerInterface" alias="monolog.logger"/>
     <service id="container.env_var_processors_locator" alias=".service_locator.w7.f4fT" public="true"/>
     <service id="twig.loader.filesystem" alias="twig.loader.native_filesystem"/>
-    <service id="argument_resolver.controller_locator" alias=".service_locator.eFqA6Ev"/>
+    <service id="argument_resolver.controller_locator" alias=".service_locator.u19lXzz"/>
     <service id="doctrine.id_generator_locator" alias=".service_locator.KLVvNIq"/>
     <service id="twig.loader" alias="twig.loader.native_filesystem"/>
     <service id="Psr\Log\LoggerInterface $requestLogger" alias="monolog.logger.request"/>
@@ -9686,7 +9784,9 @@
     <service id=".service_locator.80edgLI" alias="messenger.receiver_locator"/>
     <service id=".service_locator.h8Jkkd2" alias="messenger.retry_strategy_locator"/>
     <service id=".service_locator.bJ.4HC5" alias=".service_locator.w7.f4fT"/>
-    <service id=".service_locator.YEq2_CA" alias=".service_locator.eFqA6Ev"/>
+    <service id=".service_locator.Z4afkj1" alias=".service_locator.ZS8flUt"/>
+    <service id=".service_locator.XzYlRyi" alias=".service_locator.SCil6jr"/>
+    <service id=".service_locator.CWxQBnK" alias=".service_locator.u19lXzz"/>
     <service id=".service_locator.BFrsqsn" alias=".service_locator.F9PKc.7"/>
     <service id=".service_locator.Za9MpXe" alias=".service_locator.y4dplYt"/>
     <service id=".service_locator.XtmiKbi" alias=".service_locator.MfxSDRP"/>
@@ -9712,10 +9812,16 @@
     <service id="doctrine.orm.default_metadata_driver" alias=".doctrine.orm.default_metadata_driver"/>
     <service id="security.event_dispatcher.main" alias="debug.security.event_dispatcher.main"/>
     <service id=".service_locator.gFlme_s" alias=".service_locator.y4_Zrx."/>
+    <service id=".service_locator.dtJ5vNK" alias=".service_locator.Pe.SjzD"/>
+    <service id=".service_locator.gaTSUXr" alias=".service_locator.9kKwU2t"/>
+    <service id=".service_locator.IpxBCcS" alias=".service_locator.UWANlfb"/>
     <service id=".service_locator.Zjp7QLN" alias=".service_locator.E86grY4"/>
     <service id=".service_locator.hCLIJ7E" alias=".service_locator.gxkSA7l"/>
     <service id=".service_locator.LuRSsrn" alias=".service_locator.XWnZ26H"/>
     <service id=".service_locator.K8VrvoY" alias=".service_locator.OKM9Lf6"/>
+    <service id=".service_locator.2yoA0lW" alias=".service_locator.LHZBpiL"/>
+    <service id=".service_locator.bv3P3Zq" alias=".service_locator.ZS8flUt"/>
+    <service id=".service_locator.D3oUFwV" alias=".service_locator.SCil6jr"/>
     <service id=".service_locator.Q1z.f9O" alias=".service_locator.O2p6Lk7"/>
     <service id=".service_locator.dGUCsbe" alias=".service_locator.oR77BOj"/>
     <service id=".service_locator._kIAbz1" alias=".service_locator.TpoC7U9"/>
